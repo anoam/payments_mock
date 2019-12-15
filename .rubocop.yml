@@ -1,0 +1,47 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - tmp/**/*
+    - node_modules/**/*
+Metrics/LineLength:
+  Max: 150
+  Exclude:
+    - spec/**/*_spec.rb
+Metrics/MethodLength:
+  Max: 16
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+    - config/initializers/*.rb
+    - spec/**/*
+    - lib/tasks/**/*
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - db/**/*
+    - Gemfile
+    - config.ru
+Style/ClassAndModuleChildren:
+  Enabled: false
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+Style/Documentation:
+  Exclude:
+    - config/**/*
+RSpec/MultipleExpectations:
+  Max: 10
+RSpec/PredicateMatcher:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/VerifiedDoubles:
+  Enabled: false
