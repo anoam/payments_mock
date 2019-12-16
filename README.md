@@ -111,3 +111,10 @@ And for better expressiveness, I'll implement a result object which is a kind of
 **Specs**  
 To avoid [Primitive Obsession](https://refactoring.guru/smells/primitive-obsession) and [Long Parameter List](https://refactoring.guru/smells/long-parameter-list) a merchant accepts a [DTO](https://martinfowler.com/eaaCatalog/dataTransferObject.html) instead of hash o plain values.  
 We don't need such a sort of DTO to be implemented in the domain layer. That's why I've used double in specs and fixed its contract.  
+
+##### 2. Users management
+We have to implement 2 types of users: merchant and admin.  
+Users aren't a part of the domain. That's why it seems like a good idea to implement user management as a separate module.  
+We already implemented a merchant as a part of the domain. But the purpose of the domain is to provide invariant of business logic.  
+Meanwhile, the goal of the user is to deal with authorization and authentication. And Admin doesn't have a reflection in the domain.  
+

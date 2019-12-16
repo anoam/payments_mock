@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_16_090333) do
+ActiveRecord::Schema.define(version: 2019_12_16_153906) do
 
   create_table "domain_merchant_transactions", force: :cascade do |t|
     t.string "uuid", null: false
@@ -36,5 +36,16 @@ ActiveRecord::Schema.define(version: 2019_12_16_090333) do
     t.index ["email"], name: "index_domain_merchants_on_email", unique: true
   end
 
+  create_table "user_management_users", force: :cascade do |t|
+    t.string "type"
+    t.string "email"
+    t.string "encrypted_password"
+    t.string "token"
+    t.integer "domain_merchant_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "domain_merchant_transactions", "domain_merchants", column: "merchant_id"
+  add_foreign_key "user_management_users", "domain_merchants"
 end

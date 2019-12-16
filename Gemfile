@@ -27,20 +27,27 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Binding for the OpenBSD bcrypt() password hashing algorithm
+gem 'bcrypt'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+
+  # Factories for testing
+  gem 'factory_bot_rails'
+
+  # Test framework
+  gem 'rspec-rails'
 end
 
 group :development do
   # Static analyzer of vulnerabilities
   gem 'brakeman'
 
-  # Factories for testing
-  gem 'factory_bot_rails'
 
   gem 'listen', '>= 3.0.5', '< 3.2'
 
@@ -57,9 +64,6 @@ group :development do
   gem 'rubocop-rspec', require: false
   # Rails cops for rubocop
   gem 'rubocop-rails'
-
-  # Test framework
-  gem 'rspec-rails'
 
   # Documentation tool
   gem 'yard', require: false

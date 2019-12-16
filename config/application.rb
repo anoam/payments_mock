@@ -20,5 +20,6 @@ module PaymentsMock
 
     # Add autoload for crosscutting concepts
     config.eager_load_paths << Rails.root.join('app/crosscutting_concepts')
+    config.eager_load_paths << Rails.root.join('app/services')
   end
 end
