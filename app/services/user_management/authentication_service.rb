@@ -15,7 +15,7 @@ module UserManagement::AuthenticationService
     user.regenerate_token
     user.save!
 
-    return Result.success(user)
+    Result.success(user)
   end
 
   # Tries to find the user with given email & password

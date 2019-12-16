@@ -29,6 +29,6 @@ class UserManagement::User < ApplicationRecord
 
   # Update authentication token
   def regenerate_token
-    self.token = SecureRandom::base58(128)
+    self.token = SecureRandom.base58(128)
   end
 end

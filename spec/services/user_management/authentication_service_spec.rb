@@ -31,7 +31,7 @@ RSpec.describe UserManagement::AuthenticationService do
         end
       end
 
-      context "when password is invalid" do
+      context 'when password is invalid' do
         it 'returns failure' do
           result = service.sign_in('admin@test.test', 'wrong_password')
 
@@ -66,7 +66,7 @@ RSpec.describe UserManagement::AuthenticationService do
         end
       end
 
-      context "when password is invalid" do
+      context 'when password is invalid' do
         it 'returns failure' do
           result = service.sign_in('merchant@test.test', 'wrong_password')
 

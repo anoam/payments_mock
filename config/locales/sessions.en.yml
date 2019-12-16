@@ -1,0 +1,4 @@
+en:
+  sessions:
+    errors:
+      invalid_credentials: 'Invalid credentials'

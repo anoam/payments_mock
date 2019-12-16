@@ -35,8 +35,7 @@ Style/ClassAndModuleChildren:
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 Style/Documentation:
-  Exclude:
-    - config/**/*
+  Enabled: false
 RSpec/MultipleExpectations:
   Max: 10
 RSpec/PredicateMatcher:
@@ -45,3 +44,11 @@ RSpec/LetSetup:
   Enabled: false
 RSpec/VerifiedDoubles:
   Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+Rails/DynamicFindBy:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/ExampleLength:
+  Max: 10
