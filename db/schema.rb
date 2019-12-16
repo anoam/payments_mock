@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_12_16_153906) do
     t.integer "domain_merchant_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["token"], name: "index_user_management_users_on_token", unique: true
   end
 
   add_foreign_key "domain_merchant_transactions", "domain_merchants", column: "merchant_id"
