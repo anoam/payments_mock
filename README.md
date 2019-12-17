@@ -126,3 +126,4 @@ And I haven't used AR validations for users because it is dificult to validate p
 - I haven't introduced services for simple cases. I.e. for accepting payments invariant is provided by the domain. And all what could be extracted to service is calling `save!`.
 - I've used Bearer token for authentication via API. The token can be obained via `POST /sign_in.json`.
 - For background job I've used [rufus-scheduler](https://github.com/jmettraux/rufus-scheduler) just as a lightweight solution that doesn't require extra tools (i.e. redis) to run. Normaly I'd prefer [sidekiq-scheduler](https://github.com/moove-it/sidekiq-scheduler) or [whenever](https://github.com/javan/whenever). 
+- Run `rake merchants:import[path/to/file.csv]` to run import. See `merchants-example.csv` for format.
