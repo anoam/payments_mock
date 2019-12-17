@@ -117,6 +117,8 @@ We have to implement 2 types of users: merchant and admin.
 Users aren't a part of the domain. That's why it seems like a good idea to implement user management as a separate module.  
 We already implemented a merchant as a part of the domain. But the purpose of the domain is to provide invariant of business logic.  
 Meanwhile, the goal of the user is to deal with authorization and authentication. And Admin doesn't have a reflection in the domain.  
+For users it makes sense to edit only emails and passwords.  
+Admins don't have any other editable fields, and   
 
 ##### Other comments:
 - I haven't extracted API because it would include only two entry points and wouldn't worth the efforts.

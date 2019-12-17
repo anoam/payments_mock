@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin_space do
-    get '/', to: 'base#index'
+    resources :merchants, except: :show
+    root to: 'merchants#index'
   end
 
   post 'sign_in', to: 'sessions#sign_in'

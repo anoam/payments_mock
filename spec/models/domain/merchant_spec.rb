@@ -167,4 +167,30 @@ RSpec.describe Domain::Merchant, type: :model do
       expect(merchant.transactions).not_to include(outdated_transaction)
     end
   end
+
+  describe '.with_email' do
+    let!(:merchant1) { create(:domain_merchant, email: 'email1@mail.mail') }
+    let!(:merchant2) { create(:domain_merchant, email: 'email2@mail.mail') }
+
+    specify do
+      expect(described_class.with_email('email1@mail.mail')).to include(merchant1)
+      expect(described_class.with_email('email1@mail.mail')).not_to include(merchant2)
+
+      expect(described_class.with_email('email2@mail.mail')).to include(merchant2)
+      expect(described_class.with_email('email2@mail.mail')).not_to include(merchant1)
+    end
+  end
+
+  describe '.exclude' do
+    let!(:merchant1) { create(:domain_merchant) }
+    let!(:merchant2) { create(:domain_merchant) }
+
+    specify do
+      expect(described_class.exclude(merchant2)).to include(merchant1)
+      expect(described_class.exclude(merchant2)).not_to include(merchant2)
+
+      expect(described_class.exclude(merchant1)).to include(merchant2)
+      expect(described_class.exclude(merchant1)).not_to include(merchant1)
+    end
+  end
 end

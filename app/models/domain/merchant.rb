@@ -6,6 +6,17 @@ class Domain::Merchant < ApplicationRecord
 
   has_many :transactions, class_name: 'Domain::Merchant::Transaction', dependent: :delete_all
 
+  composed_of :info, class_name: 'Domain::Merchant::Info', mapping: [%w[email email], %w[name name], %w[description description]]
+
+  scope :with_email, ->(email) { where(email: email) }
+  scope :exclude, ->(merchant) { where.not(id: merchant.id) }
+
+  # Factory method to provide invariant
+  # @param info [Domain::Merchant::Info]
+  def self.build(info)
+    new(info: info, status: :active, transaction_sum: BigDecimal('0'))
+  end
+
   # Creates a transaction according to given information
   # @param payment_info [#amount, #processed?, #base_transaction_uuid] base payment data
   # @return [Result]
