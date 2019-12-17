@@ -152,19 +152,23 @@ RSpec.describe Domain::Merchant, type: :model do
     subject(:merchant) do
       described_class.create(
         email: 'test@test.test',
-        transaction_sum: BigDecimal('0'),
+        transaction_sum: BigDecimal('300'),
         transactions: [outdated_transaction, relevant_transaction]
       )
     end
 
-    let(:outdated_transaction) { build(:domain_merchant_transaction, created_at: Time.utc(2019, 12, 16, 10, 59)) }
-    let(:relevant_transaction) { build(:domain_merchant_transaction, created_at: Time.utc(2019, 12, 16, 11, 1)) }
+    let(:outdated_transaction) { build(:domain_merchant_transaction, created_at: Time.utc(2019, 12, 16, 10, 59), amount: BigDecimal('100')) }
+    let(:relevant_transaction) { build(:domain_merchant_transaction, created_at: Time.utc(2019, 12, 16, 11, 1), amount: BigDecimal('200')) }
 
     it 'revmoves outdated transactions' do
       merchant.remove_outdated_payments
 
       expect(merchant.transactions).to include(relevant_transaction)
       expect(merchant.transactions).not_to include(outdated_transaction)
+    end
+
+    it 'updates transaction sum' do
+      expect { merchant.remove_outdated_payments }.to change(merchant, :transaction_sum).from(BigDecimal('300')).to(BigDecimal('200'))
     end
   end
 

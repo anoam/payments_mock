@@ -41,6 +41,7 @@ class Domain::Merchant < ApplicationRecord
   # Removes all payments older than 1 hour
   def remove_outdated_payments
     self.transactions = transactions.find_all { |transaction| transaction.created_at > 1.hour.ago }
+    update_transaction_sum
   end
 
   private
