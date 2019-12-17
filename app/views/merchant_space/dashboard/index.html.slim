@@ -1,0 +1,21 @@
+| Sum of all transactions:&nbsp
+=  @domain_merchant.transaction_sum
+br
+| Your status is&nbsp
+=  @domain_merchant.status
+br
+| Your transactions
+
+table
+  thead
+    tr
+      td
+        | UUID
+      td
+        | Amount
+      td
+        | Status
+      td
+        | Base transaction UUID
+  tbody
+    = render partial: 'transaction', collection: @domain_merchant.transactions

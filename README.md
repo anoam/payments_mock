@@ -118,3 +118,8 @@ Users aren't a part of the domain. That's why it seems like a good idea to imple
 We already implemented a merchant as a part of the domain. But the purpose of the domain is to provide invariant of business logic.  
 Meanwhile, the goal of the user is to deal with authorization and authentication. And Admin doesn't have a reflection in the domain.  
 
+##### Other comments:
+- I haven't extracted API because it would include only two entry points and wouldn't worth the efforts.
+- I haven't covered controllers with module specs because they should be well covered by integration tests.
+- I haven't introduced services for simple cases. I.e. for accepting payments invariant is provided by the domain. And all what could be extracted to service is calling `save!`.
+- I've used Bearer token for authentication via API. The token can be obained via `POST /sign_in.json`.

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdminSpace::BaseController < ApplicationController
-  before_action :authenticate_with_session!
+  before_action :authorize_with_session!
 
   # temp
   def index

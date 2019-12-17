@@ -5,7 +5,7 @@
 class Domain::Merchant::Transaction < ApplicationRecord
   enum status: {processed: 0, error: 1}
 
-  belongs_to :base, class_name: 'Domain::Merchant::Transaction', foreign_key: :base_transaction_id # rubocop:disable Rails/InverseOf
+  belongs_to :base, optional: true, class_name: 'Domain::Merchant::Transaction', foreign_key: :base_transaction_id # rubocop:disable Rails/InverseOf
 
   # Factory-method
   # @param info [#amount, #processed?] transaction parameters
@@ -13,7 +13,7 @@ class Domain::Merchant::Transaction < ApplicationRecord
   # @return [Result]
   def self.build(info, base)
     return Result.failure(%i[bad_amount]) unless info.amount.is_a?(BigDecimal)
-    return Result.failure(%i[bad_amount]) if info.amount.negative?
+    return Result.failure(%i[bad_amount]) unless info.amount.positive?
 
     Result.success(
       new(
