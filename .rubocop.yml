@@ -52,3 +52,5 @@ RSpec/NamedSubject:
   Enabled: false
 RSpec/ExampleLength:
   Max: 10
+  Exclude:
+    - spec/features/**/*
