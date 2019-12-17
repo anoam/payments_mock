@@ -1,0 +1,17 @@
+= link_to 'New', new_admin_space_merchant_path
+
+table
+  thead
+    tr
+      td
+        | Name
+      td
+        | Email
+      td
+        | Description
+      td
+        | Transaction sum
+      td
+
+  tbody
+    = render partial: 'merchant', collection: @merchants

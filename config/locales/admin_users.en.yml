@@ -1,0 +1,7 @@
+en:
+  admin_space:
+    users:
+      errors:
+        email_already_used: 'Email is not unique'
+        invalid_email: 'Invalid email'
+        invalid_password: 'Password invalid'

@@ -1,0 +1,7 @@
+en:
+  admin_space:
+    merchants:
+      errors:
+        email_already_used: 'Email is not unique'
+        invalid_email: 'Invalid email'
+        invalid_name: 'Name can not be blank'

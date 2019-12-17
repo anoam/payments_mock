@@ -1,0 +1,11 @@
+= link_to 'New admin', new_admin_space_user_path
+
+table
+  thead
+    tr
+      td
+        | Email
+      td
+        | Type
+  tbody
+    = render partial: 'user', collection: @users

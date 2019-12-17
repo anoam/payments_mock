@@ -5,6 +5,8 @@ ruby '2.6.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.1'
+# Scheduler
+gem 'rufus-scheduler'
 # Slim template language
 gem 'slim-rails'
 # Use sqlite3 as the database for Active Record
@@ -27,12 +29,21 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+# Binding for the OpenBSD bcrypt() password hashing algorithm
+gem 'bcrypt'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+
+  # Factories for testing
+  gem 'factory_bot_rails'
+
+  # Test framework
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -54,9 +65,6 @@ group :development do
   gem 'rubocop-rspec', require: false
   # Rails cops for rubocop
   gem 'rubocop-rails'
-
-  # Test framework
-  gem 'rspec-rails'
 
   # Documentation tool
   gem 'yard', require: false

@@ -1,0 +1,6 @@
+en:
+  merchant_space:
+    dasboard:
+      errors:
+        bad_amount: 'Invalid amount value'
+        bad_base_transaction_uuid: 'Unavailable base transaction'

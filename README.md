@@ -76,3 +76,54 @@ The domain model approach requires additional resources for implementation compa
 After all, I decided to implement a domain model to illustrate my skills.
 
 Because of the simplicity of the domain, it doesn't make sense to extract the [Service Layer](https://martinfowler.com/eaaCatalog/serviceLayer.html)
+
+##### 1. Domain model implementation
+
+According to the task, we can define two entities: Merchant and Transaction.  
+Since transaction makes no sense without a merchant it seems like a good idea to join them in the [aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html).  
+And merchant should be an aggregation root.  
+There are two main related operations:
+- Create a transaction
+- Destroy all transaction older than 1 hour
+
+According to the principles of [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), we should avoid using a framework on the domain model level.  
+In particular, rails' implementation of the [Active Record pattern](https://www.martinfowler.com/eaaCatalog/activeRecord.html) lacks encapsulation. And Transactions must be immutable by their essence.  
+But since our entities are pretty simple and there won't be many teams working with this project, it's a kind of compromise to break this rule and use AR directly. As a benefit, we'll increase development speed.  
+Otherwise, I'd use plain objects as entities and AR as a mechanism to implement database mapping (i.e. like [Row Data Gateway](https://martinfowler.com/eaaCatalog/rowDataGateway.html)).  
+
+The creation of transaction assumes changing of Merchant's balance. And that's the example of invariant which will be preserved by the aggregate.  
+  
+For now, it is not clear whether 1 hour is a constant life span for transactions or it can be somehow changed.  
+That's why I've decided not to accept it as a parameter.  
+In this way, we prevented the leaking of business logic from the layer.  
+But we'll be able to introduce this parameter easy if we need it in the future.   
+
+For Merchant, we can use email as an identifier. UUID is an identifier of transactions.  
+But I've left IDs for these entities for more convenient database mapping.  
+
+**Validations**
+The domain model must provide invariant. It means we can't rely on incoming data.
+AR provides a great API for validation. But to use it we have to create a potentially invalid object or turn the existed one into an invalid state.  
+That's because it is designed for data-centric applications. Domain model I'm going to use manual validation.  
+And for better expressiveness, I'll implement a result object which is a kind of crosscutting concept.   
+
+
+**Specs**  
+To avoid [Primitive Obsession](https://refactoring.guru/smells/primitive-obsession) and [Long Parameter List](https://refactoring.guru/smells/long-parameter-list) a merchant accepts a [DTO](https://martinfowler.com/eaaCatalog/dataTransferObject.html) instead of hash o plain values.  
+We don't need such a sort of DTO to be implemented in the domain layer. That's why I've used double in specs and fixed its contract.  
+
+##### 2. Users management
+We have to implement 2 types of users: merchant and admin.  
+Users aren't a part of the domain. That's why it seems like a good idea to implement user management as a separate module.  
+We already implemented a merchant as a part of the domain. But the purpose of the domain is to provide invariant of business logic.  
+Meanwhile, the goal of the user is to deal with authorization and authentication. And Admin doesn't have a reflection in the domain.  
+On the contrary, to Domain entities users don't have any behavior and typically just a data. Thus I've decided to implement this part with anemic style.  
+And I haven't used AR validations for users because it is dificult to validate password with them. And I don't want mix approaches for same class.
+
+##### Other comments:
+- I haven't extracted API because it would include only two entry points and wouldn't worth the efforts.
+- I haven't covered controllers with module specs because they should be well covered by integration tests.
+- I haven't introduced services for simple cases. I.e. for accepting payments invariant is provided by the domain. And all what could be extracted to service is calling `save!`.
+- I've used Bearer token for authentication via API. The token can be obained via `POST /sign_in.json`.
+- For background job I've used [rufus-scheduler](https://github.com/jmettraux/rufus-scheduler) just as a lightweight solution that doesn't require extra tools (i.e. redis) to run. Normaly I'd prefer [sidekiq-scheduler](https://github.com/moove-it/sidekiq-scheduler) or [whenever](https://github.com/javan/whenever). 
+- Run `rake merchants:import[path/to/file.csv]` to run import. See `merchants-example.csv` for format.
