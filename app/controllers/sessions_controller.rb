@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
       if result.payload.is_a?(UserManagement::Merchant)
         redirect_to merchant_space_path
       else
-        redirect_to admin_space_path
+        redirect_to admin_space_root_path
       end
     else
       render action: :signin_form

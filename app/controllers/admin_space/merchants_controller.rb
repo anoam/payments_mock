@@ -19,6 +19,8 @@ class AdminSpace::MerchantsController < AdminSpace::BaseController
     result = merchant_service.create(@form)
 
     if result.success?
+      # Normally it should be implemented with events.
+      manage_user_service.create_merchant(result.payload)
       redirect_to action: :index
     else
       @errors = errors_by_codes(result.payload)
@@ -48,5 +50,9 @@ class AdminSpace::MerchantsController < AdminSpace::BaseController
 
   def errors_by_codes(codes)
     codes.map { |code| I18n.t("admin_space.merchants.errors.#{code}") }
+  end
+
+  def manage_user_service
+    UserManagement::ManageUserService
   end
 end

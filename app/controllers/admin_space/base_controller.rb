@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AdminSpace::BaseController < ApplicationController
+  layout 'admin'
   before_action :authenticate_with_session!
 
   private

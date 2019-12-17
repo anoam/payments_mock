@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin_space do
+    resources :users, except: :show
     resources :merchants, except: :show
     root to: 'merchants#index'
   end

@@ -1,0 +1,6 @@
+div=@errors.join(', ') if @errors
+= label_tag(:email, "Email:")
+= text_field_tag(:email, @form.email)
+= label_tag(:password, "Password:")
+= password_field_tag(:password)
+= submit_tag('Save')
